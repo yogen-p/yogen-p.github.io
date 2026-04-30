@@ -3,707 +3,1450 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yogi P - Senior Android Engineer</title>
+    <!-- Aggressive no-cache during preview so style updates aren't masked by iOS Safari caching -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Yogi P — Senior Android Engineer</title>
     <meta name="description" content="Personal website of Yogi P, Senior Android Engineer at Lopay">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    
-    <!-- Custom Tailwind Config -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#f0fdf4',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d'
-                        }
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'bounce-slow': 'bounce 2s infinite'
-                    }
-                }
-            }
-        }
-    </script>
-    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Space Grotesk for chunky grotesk display + body -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        
-        * {
-            font-family: 'Inter', sans-serif;
+        :root {
+            --ink:    #0a0a0a;
+            --cream:  #f4ebd0;       /* warm off-cream — section 1 */
+            --blue:   #1a3cff;       /* electric royal blue — section 2 */
+            --acid:   #c4f135;       /* acid lime — section 4 */
+            --pink:   #ff5c8a;       /* hot pink — accent */
+            --warm:   #e8633c;       /* terracotta — reserved for the manifesto only,
+                                        a new colour that exists nowhere else on the page */
+            --grey:   #9aa0a6;       /* literal grey, used inside the manifesto headline
+                                        to make the word "greyer" embody its meaning */
+            --white:  #ffffff;
+            --shadow: 0 0 0 2px var(--ink);     /* hard outline */
+            --offset: 8px 8px 0 var(--ink);     /* hard offset shadow */
+            --offset-lg: 12px 12px 0 var(--ink);
         }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            background: var(--cream);
+            color: var(--ink);
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            font-size: 17px;
+            line-height: 1.45;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
-        
-        .tech-pattern {
-            background-image: radial-gradient(circle at 25px 25px, rgba(255, 255, 255, 0.1) 2px, transparent 0),
-                radial-gradient(circle at 75px 75px, rgba(255, 255, 255, 0.1) 2px, transparent 0);
-            background-size: 100px 100px;
+        a { color: inherit; text-decoration: none; }
+        ::selection { background: var(--ink); color: var(--acid); }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
         }
-        
-        .card-hover {
-            transition: all 0.3s ease;
+        @media (min-width: 768px) { .container { padding: 0 56px; } }
+
+        /* ── Custom cursor (section-aware: color is set by JS per section) ─ */
+        :root {
+            --cursor-color: #0a0a0a;     /* default: ink, used on cream sections */
+            --cursor-hover: #c4f135;     /* default hover fill: acid */
         }
-        
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        
-        .skill-badge {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-        }
-        
-        .project-card {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            border: 1px solid rgba(102, 126, 234, 0.2);
-        }
-        
-        .animated-bg {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        
-        .floating-orb {
-            position: absolute;
-            border-radius: 50%;
-            mix-blend-mode: multiply;
-            filter: blur(40px);
-            opacity: 0.2;
-            animation: pulse 4s ease-in-out infinite;
-        }
-        
-        .floating-orb:nth-child(1) {
-            top: -10rem;
-            right: -10rem;
-            width: 20rem;
-            height: 20rem;
-            background: linear-gradient(135deg, #a855f7, #ec4899);
-            animation-delay: 0s;
-        }
-        
-        .floating-orb:nth-child(2) {
-            bottom: -10rem;
-            left: -10rem;
-            width: 20rem;
-            height: 20rem;
-            background: linear-gradient(135deg, #fbbf24, #ef4444);
-            animation-delay: 2s;
-        }
-        
-        .floating-orb:nth-child(3) {
-            top: 10rem;
-            left: 10rem;
-            width: 20rem;
-            height: 20rem;
-            background: linear-gradient(135deg, #3b82f6, #10b981);
-            animation-delay: 4s;
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #1f2937, #059669);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .gradient-text-hero {
-            background: linear-gradient(135deg, #1f2937, #059669, #2563eb);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .btn-gradient {
-            background: linear-gradient(135deg, #059669, #2563eb);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-gradient:hover {
-            background: linear-gradient(135deg, #047857, #1d4ed8);
-            transform: translateY(-1px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .mobile-nav {
-            display: none;
-        }
-        
-        @media (max-width: 768px) {
-            .desktop-nav {
-                display: none;
-            }
-            .mobile-nav {
-                display: block;
-            }
-        }
-        
-        .mobile-menu {
-            display: none;
+        .cursor-dot, .cursor-ring {
             position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100vh;
-            background: white;
-            z-index: 50;
-            padding: 2rem;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 100;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            will-change: transform;
         }
-        
-        .mobile-menu.active {
+        .cursor-dot {
+            width: 8px; height: 8px;
+            background: var(--cursor-color);
+            transition: background 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .cursor-ring {
+            width: 36px; height: 36px;
+            border: 2px solid var(--cursor-color);
+            transition:
+                width 0.25s ease,
+                height 0.25s ease,
+                background 0.25s ease,
+                border-color 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .cursor-ring.is-hover {
+            width: 64px; height: 64px;
+            background: var(--cursor-hover);
+            border-color: var(--cursor-hover);
+        }
+        @media (max-width: 768px), (hover: none) {
+            .cursor-dot, .cursor-ring { display: none; }
+        }
+        body { cursor: auto; }
+        @media (hover: hover) and (min-width: 769px) {
+            html.has-cursor body, html.has-cursor body * { cursor: none !important; }
+        }
+
+        /* ── Header ────────────────────────────────────────────── */
+        header {
+            position: fixed;
+            top: 16px; left: 16px; right: 16px;
+            z-index: 50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--ink);
+            color: var(--cream);
+            padding: 12px 20px;
+            border: 2px solid var(--ink);
+            border-radius: 999px;
+            box-shadow: 4px 4px 0 var(--ink);
+        }
+        .brand {
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .brand-dot {
+            width: 10px; height: 10px;
+            background: var(--acid);
+            border-radius: 50%;
+        }
+        nav.primary { display: none; gap: 24px; }
+        @media (min-width: 768px) { nav.primary { display: flex; } }
+        nav.primary a {
+            font-size: 13px;
+            font-weight: 500;
+            position: relative;
+            padding: 4px 0;
+        }
+        nav.primary a::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 100%; bottom: 0;
+            height: 2px;
+            background: var(--acid);
+            transition: right 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        nav.primary a:hover::after { right: 0; }
+
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--cream);
+            border: 2px solid var(--cream);
+            color: var(--ink);
+            padding: 6px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        @media (min-width: 768px) { .menu-btn { display: none; } }
+
+        /* ── Mobile drawer ──────────────────────────────────────── */
+        .drawer {
+            position: fixed;
+            inset: 0;
+            background: var(--acid);
+            z-index: 90;
+            transform: translateY(-100%);
+            transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
             display: flex;
             flex-direction: column;
+            padding: 24px;
         }
-        
-        html {
-            scroll-behavior: smooth;
+        .drawer.is-open { transform: translateY(0); }
+        .drawer-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 64px; }
+        .drawer nav { display: flex; flex-direction: column; gap: 8px; }
+        .drawer nav a {
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            padding: 8px 0;
+        }
+
+        /* ── Section base ───────────────────────────────────────── */
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+        @media (min-width: 1024px) { section { padding: 160px 0; } }
+
+        .section-cream  { background: var(--cream); color: var(--ink); }
+        .section-blue   { background: var(--blue);  color: var(--cream); }
+        .section-ink    { background: var(--ink);   color: var(--cream); }
+        .section-acid   { background: var(--acid);  color: var(--ink); }
+        .section-pink   { background: var(--pink);  color: var(--ink); }
+        .section-warm   { background: var(--warm);  color: var(--ink); }
+
+        /* hard borders between sections */
+        .section-blue, .section-ink, .section-acid, .section-pink, .section-warm {
+            border-top: 2px solid var(--ink);
+        }
+
+        /* ── Manifesto interlude ────────────────────────────────────
+           Sits between About and Skills as a typographic poster.
+           Introduces a brand-new colour (terracotta) that exists
+           nowhere else on the site — the form embodies the argument
+           the copy is making.                                          */
+        .manifesto-headline {
+            font-size: clamp(56px, 11vw, 180px);
+            line-height: 0.88;
+            letter-spacing: -0.04em;
+            font-weight: 700;
+            margin: 0 0 56px;
+            text-transform: uppercase;
+        }
+        .manifesto-headline .line  { display: block; overflow: hidden; }
+        .manifesto-headline .line > span { display: inline-block; will-change: transform; }
+        .manifesto-headline .grey  { color: var(--grey); }   /* the word literally greys out */
+        .manifesto-headline .pink  { color: var(--pink); }   /* the answer pops in colour */
+
+        .manifesto-body {
+            font-size: clamp(18px, 1.6vw, 22px);
+            line-height: 1.5;
+            font-weight: 500;
+            margin: 0 0 16px;
+            max-width: 56ch;
+        }
+        .manifesto-body strong {
+            background: var(--ink);
+            color: var(--cream);
+            padding: 0 6px;
+            font-weight: 700;
+        }
+        .manifesto-body:last-of-type { margin-bottom: 0; }
+
+        /* A small hand-drawn underline beneath "I'm not." — extra character flourish */
+        .manifesto-mark {
+            display: inline-block;
+            margin-top: 8px;
+            color: var(--ink);
+            opacity: 0.85;
+        }
+        .manifesto-mark svg { display: block; width: clamp(120px, 18vw, 240px); height: auto; }
+        .manifesto-mark path {
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 4;
+            stroke-linecap: round;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            .manifesto-mark path {
+                stroke-dasharray: 600;
+                stroke-dashoffset: 600;
+                transition: stroke-dashoffset 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.6s;
+            }
+            .manifesto.is-in .manifesto-mark path { stroke-dashoffset: 0; }
+        }
+
+        /* ── Hero (marquee variant) ─────────────────────────────────
+           Replaces the static "I MAKE PHONES TAKE MONEY" headline
+           with a stacked layout: full-bleed scrolling marquee at the
+           top, calm conversational paragraph in the middle, and a
+           reverse-direction sticker-pill marquee at the bottom. The
+           opposing motion is the design.                              */
+        .hero {
+            min-height: 100vh;
+            /* Push content below the floating fixed header (header sits at top:16
+               with ~50px height = ~80px reserved). Without this, the giant
+               marquee text would slide behind the header and look clipped. */
+            padding: 90px 0 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: stretch;
+            position: relative;
+            overflow: hidden;        /* clips marquee tracks at viewport edges */
+        }
+
+        /* ── Marquees (CSS-only, GPU-friendly) ──
+           Track holds the items twice and translates -50% to loop
+           seamlessly. Pause animation on hover and on reduced motion. */
+        .hero-marquee {
+            width: 100%;
+            overflow: hidden;
+            border-bottom: 2px solid var(--ink);
+            padding: 18px 0;
+            background: var(--cream);
+        }
+        .hero-marquee.reverse { border-bottom: none; border-top: 2px solid var(--ink); }
+        .hero-marquee-track {
+            display: inline-flex;
+            align-items: center;
+            gap: 56px;
+            width: max-content;
+            white-space: nowrap;
+            /* Slow scroll — meant to feel like a calm tide, not a stock ticker. */
+            animation: marquee-left 60s linear infinite;
+            will-change: transform;
+        }
+        .hero-marquee:hover .hero-marquee-track,
+        .hero-marquee:focus-within .hero-marquee-track {
+            animation-play-state: paused;
+        }
+        @keyframes marquee-left {
+            from { transform: translate3d(0, 0, 0); }
+            to   { transform: translate3d(-50%, 0, 0); }
+        }
+        @keyframes marquee-right {
+            from { transform: translate3d(-50%, 0, 0); }
+            to   { transform: translate3d(0, 0, 0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-marquee-track { animation: none; }
+        }
+
+        /* Top marquee: restrained typography, single ink colour, the only motion. */
+        .hmi {
+            font-size: clamp(22px, 3vw, 44px);
+            line-height: 1;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            text-transform: uppercase;
+            color: var(--ink);
+            display: inline-block;
+        }
+        .hmi.sep {
+            font-size: 0.7em;
+            color: var(--pink);
+            opacity: 0.85;
+            transform: translateY(-0.05em);
+        }
+
+        /* Center calm: personal intro paragraph + CTAs, with the bot
+           illustration alongside on tablet+ and stacked above on mobile.
+           Use vertical-only padding here so .container's horizontal padding
+           is preserved (otherwise mobile body text sits flush left). */
+        .hero-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 64px;
+            padding-bottom: 64px;
+        }
+        @media (min-width: 768px) {
+            .hero-center {
+                flex-direction: row;
+                align-items: center;
+                gap: 56px;
+            }
+            .hero-text { flex: 1; min-width: 0; }
+        }
+
+        /* Android bot illustration — restored from the previous hero, kept
+           smaller and animated subtly (gentle bob + antenna-LED pulse) so it
+           adds character without breaking the calm composition. */
+        .hero-bot {
+            flex-shrink: 0;
+            width: clamp(160px, 45vw, 220px);
+            order: -1;          /* on mobile, sit above the text */
+            margin: 0 auto 32px;
+        }
+        @media (min-width: 768px) {
+            .hero-bot {
+                width: clamp(180px, 22vw, 280px);
+                order: 0;       /* tablet+: back beside the text on the right */
+                margin: 0;
+            }
+        }
+        .hero-bot svg { width: 100%; height: auto; display: block; }
+        @media (prefers-reduced-motion: no-preference) {
+            .hero-bot { animation: bot-float 3.8s ease-in-out infinite; }
+            .hero-bot .antenna-led {
+                animation: bot-led 1.6s ease-in-out infinite;
+                transform-origin: center;
+            }
+        }
+        @keyframes bot-float {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(-6px); }
+        }
+        @keyframes bot-led {
+            0%, 100% { opacity: 1; }
+            50%      { opacity: 0.45; }
+        }
+        .hero-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--ink);
+            opacity: 0.65;
+            margin-bottom: 32px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hero-eyebrow .blink-dot {
+            width: 8px; height: 8px;
+            background: var(--pink);
+            border-radius: 50%;
+            animation: blink 1.6s ease-in-out infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%      { opacity: 0.35; transform: scale(0.8); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-eyebrow .blink-dot { animation: none; }
+        }
+
+        .hero-intro {
+            font-size: clamp(26px, 3.4vw, 48px);
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            font-weight: 500;
+            margin: 0 0 48px;
+            max-width: 24ch;
+        }
+        /* One quiet emphasis: just a slightly heavier weight + a thin pink
+           underline below "Yogi P". No badge, no fill, no shouting. */
+        .hero-intro strong {
+            font-weight: 700;
+            text-decoration: underline;
+            text-decoration-color: var(--pink);
+            text-decoration-thickness: 3px;
+            text-underline-offset: 6px;
+        }
+
+        /* Subtle bottom-of-fold scroll cue — small mono text, low contrast */
+        .hero-foot {
+            text-align: center;
+            padding: 16px 24px 28px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink);
+            opacity: 0.45;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            .hero-foot { animation: nudge 2.4s ease-in-out infinite; }
+        }
+        @keyframes nudge {
+            0%, 100% { transform: translateY(0); }
+            50%      { transform: translateY(4px); }
+        }
+
+        /* CTA buttons (kept from previous variant) */
+        .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 28px;
+            border-radius: 999px;
+            font-size: 15px;
+            font-weight: 600;
+            border: 2px solid var(--ink);
+            background: var(--cream);
+            color: var(--ink);
+            box-shadow: 4px 4px 0 var(--ink);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.2s ease;
+        }
+        .btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--ink);
+        }
+        .btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0 0 0 var(--ink);
+        }
+        .btn-primary { background: var(--acid); }
+        .btn-pink    { background: var(--pink); color: var(--cream); }
+
+        /* Bottom marquee: sticker-style pills with offset shadows scrolling past */
+        .hero-pill {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 22px;
+            border-radius: 999px;
+            border: 2px solid var(--ink);
+            background: var(--cream);
+            color: var(--ink);
+            font-size: clamp(16px, 1.3vw, 20px);
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 4px 4px 0 var(--ink);
+        }
+        .hero-pill.acid { background: var(--acid); }
+        .hero-pill.pink { background: var(--pink); color: var(--cream); }
+        .hero-pill.ink  { background: var(--ink);  color: var(--acid); }
+        .hero-pill .star {
+            font-size: 1.2em;
+            color: var(--pink);
+        }
+        .hero-pill.pink .star { color: var(--cream); }
+
+        /* ── Accent-word technique (kept for other sections) ─────── */
+        .section-cream .s-head h2 .stroke,
+        .section-acid  .s-head h2 .stroke { color: var(--pink); }
+        .section-blue  .s-head h2 .stroke,
+        .section-ink   .s-head h2 .stroke { color: var(--acid); }
+        .contact-prompt .stroke           { color: var(--cream); }
+
+        /* ── Section header ─────────────────────────────────────── */
+        .s-head {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 64px;
+        }
+        .s-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+        .s-head h2 {
+            font-size: clamp(56px, 9vw, 144px);
+            line-height: 0.9;
+            letter-spacing: -0.045em;
+            font-weight: 700;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        /* ── Work ───────────────────────────────────────────────── */
+        .work-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+        @media (min-width: 768px) { .work-grid { grid-template-columns: 1fr 1fr; gap: 48px; } }
+
+        .work-card {
+            background: var(--cream);
+            color: var(--ink);
+            border: 2px solid var(--ink);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: var(--offset);
+            transition: transform 0.25s cubic-bezier(0.65, 0, 0.35, 1), box-shadow 0.25s cubic-bezier(0.65, 0, 0.35, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+        }
+        .work-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: var(--offset-lg);
+        }
+        .work-card .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: var(--ink);
+            color: var(--acid);
+            padding: 6px 12px;
+            border-radius: 999px;
+            align-self: flex-start;
+        }
+        .work-card h3 {
+            font-size: 32px;
+            line-height: 1;
+            letter-spacing: -0.025em;
+            font-weight: 700;
+            margin: 8px 0 0;
+        }
+        .work-card .desc {
+            font-size: 15px;
+            line-height: 1.5;
+            margin: 0;
+            flex: 1;
+        }
+        .work-card .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .work-card .tag {
+            font-size: 12px;
+            font-weight: 500;
+            padding: 6px 12px;
+            border: 1.5px solid var(--ink);
+            border-radius: 999px;
+            transform: rotate(-2deg);
+            transition: transform 0.2s ease;
+        }
+        .work-card .tag:nth-child(2n) { transform: rotate(2deg); }
+        .work-card:hover .tag { transform: rotate(0); }
+        .work-card .arrow-link {
+            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .work-card .arrow-link span { transition: transform 0.25s ease; }
+        .work-card:hover .arrow-link span { transform: translateX(4px); }
+
+        .work-card.alt-1 { background: var(--acid); }
+        .work-card.alt-2 { background: var(--pink); color: var(--cream); }
+        .work-card.alt-2 .badge { background: var(--cream); color: var(--ink); }
+        .work-card.alt-3 { background: var(--cream); }
+        .work-card.alt-4 { background: var(--blue); color: var(--cream); }
+        .work-card.alt-4 .badge { background: var(--acid); color: var(--ink); }
+        .work-card.alt-4 .tag { border-color: var(--cream); }
+
+        /* ── Experience ─────────────────────────────────────────── */
+        .timeline { display: flex; flex-direction: column; gap: 0; }
+        .tl-item {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            padding: 48px 0;
+            border-top: 2px solid var(--cream);
+        }
+        .tl-item:last-child { border-bottom: 2px solid var(--cream); }
+        @media (min-width: 768px) { .tl-item { grid-template-columns: 240px 1fr; gap: 64px; padding: 64px 0; } }
+
+        .tl-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        .tl-role h3 {
+            font-size: clamp(36px, 4.5vw, 56px);
+            line-height: 1;
+            letter-spacing: -0.03em;
+            font-weight: 700;
+            margin: 0 0 8px;
+            text-transform: uppercase;
+        }
+        .tl-company {
+            color: var(--acid);
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 24px;
+        }
+        .tl-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 60ch;
+        }
+        .tl-bullets li {
+            font-size: 16px;
+            opacity: 0.85;
+            padding-left: 28px;
+            position: relative;
+        }
+        .tl-bullets li::before {
+            content: '→';
+            position: absolute;
+            left: 0; top: 0;
+            color: var(--acid);
+            font-weight: 700;
+        }
+
+        /* ── Skills (acid section) ──────────────────────────────── */
+        .skills-wrap {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .skill-cluster {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .skill-cluster h4 {
+            width: 100%;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin: 16px 0 8px;
+            opacity: 0.6;
+        }
+        .skill-cluster:first-child h4 { margin-top: 0; }
+        .skill {
+            display: inline-flex;
+            align-items: center;
+            font-size: 17px;
+            font-weight: 600;
+            padding: 10px 18px;
+            border: 2px solid var(--ink);
+            border-radius: 999px;
+            background: var(--cream);
+            box-shadow: 4px 4px 0 var(--ink);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .skill:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--ink);
+        }
+        .skill:nth-child(3n+1) { transform: rotate(-1.5deg); }
+        .skill:nth-child(3n+2) { transform: rotate(1deg); }
+        .skill:nth-child(3n+3) { transform: rotate(0deg); }
+        .skill:hover { transform: translate(-2px, -2px) rotate(0); }
+        .skill.pink { background: var(--pink); color: var(--cream); }
+        .skill.ink  { background: var(--ink);  color: var(--acid); }
+
+        /* ── About + Education (ink section) ────────────────────── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+        @media (min-width: 768px) { .about-grid { grid-template-columns: 1.4fr 1fr; gap: 80px; } }
+        .about p {
+            font-size: clamp(18px, 1.6vw, 22px);
+            line-height: 1.45;
+            margin: 0 0 24px;
+        }
+        .about p strong { background: var(--acid); color: var(--ink); padding: 0 6px; font-weight: 700; }
+        .meta-stack { display: flex; flex-direction: column; gap: 16px; }
+        .meta-card {
+            background: var(--cream);
+            color: var(--ink);
+            border: 2px solid var(--cream);
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 6px 6px 0 var(--acid);
+        }
+        .meta-card .label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.6;
+            margin-bottom: 4px;
+        }
+        .meta-card .value { font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+        .meta-card .value small { display: block; font-size: 13px; font-weight: 500; opacity: 0.7; margin-top: 4px; }
+        .meta-card.acid { background: var(--acid); box-shadow: 6px 6px 0 var(--cream); }
+        .meta-card.pink { background: var(--pink); color: var(--cream); box-shadow: 6px 6px 0 var(--acid); }
+
+        /* ── Contact (pink section) ─────────────────────────────── */
+        .contact-prompt {
+            font-size: clamp(56px, 9vw, 144px);
+            line-height: 0.9;
+            letter-spacing: -0.045em;
+            font-weight: 700;
+            margin: 0 0 64px;
+            text-transform: uppercase;
+        }
+        .contact-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        @media (min-width: 768px) { .contact-list { grid-template-columns: 1fr 1fr 1fr; gap: 24px; } }
+        .contact-card {
+            background: var(--cream);
+            color: var(--ink);
+            border: 2px solid var(--ink);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: var(--offset);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .contact-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: var(--offset-lg);
+        }
+        .contact-card .label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.6;
+        }
+        .contact-card .icon-wrap {
+            width: 64px; height: 64px;
+            border: 2px solid currentColor;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            box-shadow: 4px 4px 0 currentColor;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .contact-card:hover .icon-wrap {
+            transform: rotate(-4deg);
+        }
+        .contact-card .icon-wrap svg {
+            width: 32px; height: 32px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .contact-card .icon-wrap svg.fill {
+            fill: currentColor;
+            stroke: none;
+        }
+        .contact-card .value {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .contact-card .arrow-link {
+            margin-top: auto;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            gap: 6px;
+        }
+        .contact-card .arrow-link span { transition: transform 0.25s ease; }
+        .contact-card:hover .arrow-link span { transform: translateX(4px); }
+        .contact-card.acid { background: var(--acid); }
+        .contact-card.ink  { background: var(--ink); color: var(--cream); }
+
+        /* ── Footer ─────────────────────────────────────────────── */
+        footer {
+            background: var(--ink);
+            color: var(--cream);
+            padding: 48px 0 32px;
+            border-top: 2px solid var(--ink);
+        }
+        .foot-mega {
+            font-size: clamp(80px, 18vw, 280px);
+            line-height: 0.85;
+            letter-spacing: -0.05em;
+            font-weight: 700;
+            margin: 0 0 32px;
+            text-transform: uppercase;
+            /* Solid cream at low opacity so the giant "YOGI P" reads as a
+               watermark/echo rather than dominating the footer. Avoids the
+               iOS Safari outlined-text rendering issues entirely. */
+            color: var(--cream);
+            opacity: 0.18;
+        }
+        .foot-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            /* Override the inherited warm cream — at small mono sizes on pure
+               ink it reads as dim/grey. Pure white feels crisp here. */
+            color: #ffffff;
+            border-top: 1px solid rgba(255, 255, 255, 0.18);
+            padding-top: 24px;
+        }
+        .foot-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s ease;
+        }
+        .foot-back:hover { color: var(--acid); }
+
+        /* ── Reveal animations ──────────────────────────────────── */
+        .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.is-in { opacity: 1; transform: translateY(0); }
+        .reveal-stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-stagger.is-in > * { opacity: 1; transform: translateY(0); }
+        .reveal-stagger.is-in > *:nth-child(1) { transition-delay: 0ms; }
+        .reveal-stagger.is-in > *:nth-child(2) { transition-delay: 80ms; }
+        .reveal-stagger.is-in > *:nth-child(3) { transition-delay: 160ms; }
+        .reveal-stagger.is-in > *:nth-child(4) { transition-delay: 240ms; }
+        .reveal-stagger.is-in > *:nth-child(5) { transition-delay: 320ms; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .reveal-stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+            .hero h1 .line > span { transform: none !important; }
+            .cursor-dot, .cursor-ring { display: none; }
+            html.has-cursor body, html.has-cursor body * { cursor: auto !important; }
         }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
-    <!-- Header -->
-    <header class="sticky top-0 z-40 w-full border-b bg-white/80 backdrop-blur-md shadow-sm">
-        <div class="container mx-auto flex h-16 items-center justify-between px-4">
-            <div class="font-bold text-xl bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-                Yogi P
-            </div>
-            <nav class="desktop-nav hidden md:flex items-center gap-6">
-                <a href="#about" class="text-sm font-medium hover:text-green-600 transition-colors">About</a>
-                <a href="#experience" class="text-sm font-medium hover:text-green-600 transition-colors">Experience</a>
-                <a href="#education" class="text-sm font-medium hover:text-green-600 transition-colors">Education</a>
-                <a href="#skills" class="text-sm font-medium hover:text-green-600 transition-colors">Skills</a>
-                <a href="#projects" class="text-sm font-medium hover:text-green-600 transition-colors">Projects</a>
-                <a href="#contact" class="text-sm font-medium hover:text-green-600 transition-colors">Contact</a>
-            </nav>
-            <button class="mobile-nav md:hidden p-2 border rounded-md" onclick="toggleMobileMenu()">
-                <i data-lucide="menu" class="h-5 w-5"></i>
-            </button>
-        </div>
+<body>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <header>
+        <a href="#top" class="brand"><span class="brand-dot"></span> Yogi P</a>
+        <nav class="primary">
+            <a href="#work" data-hover>Work</a>
+            <a href="#experience" data-hover>Experience</a>
+            <a href="#about" data-hover>About</a>
+            <a href="#skills" data-hover>Skills</a>
+            <a href="#contact" data-hover>Contact</a>
+        </nav>
+        <button class="menu-btn" id="menuBtn" data-hover>
+            Menu
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
     </header>
 
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu">
-        <div class="flex justify-between items-center mb-8">
-            <div class="font-bold text-xl">Yogi P</div>
-            <button onclick="toggleMobileMenu()" class="p-2">
-                <i data-lucide="x" class="h-6 w-6"></i>
+    <div class="drawer" id="drawer" aria-hidden="true">
+        <div class="container drawer-head">
+            <span class="brand"><span class="brand-dot"></span> Yogi P</span>
+            <button class="menu-btn" id="drawerClose">
+                Close
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
             </button>
         </div>
-        <nav class="flex flex-col gap-4">
-            <a href="#about" class="text-lg font-medium hover:text-green-600 transition-colors" onclick="toggleMobileMenu()">About</a>
-            <a href="#experience" class="text-lg font-medium hover:text-green-600 transition-colors" onclick="toggleMobileMenu()">Experience</a>
-            <a href="#education" class="text-lg font-medium hover:text-green-600 transition-colors" onclick="toggleMobileMenu()">Education</a>
-            <a href="#skills" class="text-lg font-medium hover:text-green-600 transition-colors" onclick="toggleMobileMenu()">Skills</a>
-            <a href="#projects" class="text-lg font-medium hover:text-green-600 transition-colors" onclick="toggleMobileMenu()">Projects</a>
-            <a href="#contact" class="text-lg font-medium hover:text-green-600 transition-colors" onclick="toggleMobileMenu()">Contact</a>
+        <nav class="container">
+            <a href="#work">Work</a>
+            <a href="#experience">Experience</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
         </nav>
     </div>
 
-    <main class="container mx-auto py-8 md:py-12 px-4">
-        <!-- Hero Section -->
-        <section class="relative py-12 md:py-24 overflow-hidden">
-            <div class="animated-bg">
-                <div class="floating-orb"></div>
-                <div class="floating-orb"></div>
-                <div class="floating-orb"></div>
+    <main id="top">
+        <!-- ── Hero (cream) — calm marquee variant ──────────────────
+             Single small-scale marquee at the top supplies the only
+             motion. The rest of the hero is restful: a small eyebrow,
+             a conversational paragraph with one quiet emphasis, two
+             CTAs. No bottom marquee, no inline stamps.                -->
+        <section class="section-cream hero" data-bg="cream">
+            <!-- TOP MARQUEE: medium type, single colour, slow scroll -->
+            <div class="hero-marquee" aria-hidden="true">
+                <div class="hero-marquee-track">
+                    <span class="hmi">Payments</span>     <span class="hmi sep">✦</span>
+                    <span class="hmi">Android</span>      <span class="hmi sep">✦</span>
+                    <span class="hmi">Kotlin</span>       <span class="hmi sep">✦</span>
+                    <span class="hmi">Compose</span>      <span class="hmi sep">✦</span>
+                    <span class="hmi">S700</span>         <span class="hmi sep">✦</span>
+                    <span class="hmi">Lopay</span>        <span class="hmi sep">✦</span>
+                    <span class="hmi">Teaching</span>     <span class="hmi sep">✦</span>
+                    <span class="hmi">Mentoring</span>    <span class="hmi sep">✦</span>
+                    <span class="hmi">London</span>       <span class="hmi sep">✦</span>
+                    <!-- duplicate set so the loop is seamless -->
+                    <span class="hmi">Payments</span>     <span class="hmi sep">✦</span>
+                    <span class="hmi">Android</span>      <span class="hmi sep">✦</span>
+                    <span class="hmi">Kotlin</span>       <span class="hmi sep">✦</span>
+                    <span class="hmi">Compose</span>      <span class="hmi sep">✦</span>
+                    <span class="hmi">S700</span>         <span class="hmi sep">✦</span>
+                    <span class="hmi">Lopay</span>        <span class="hmi sep">✦</span>
+                    <span class="hmi">Teaching</span>     <span class="hmi sep">✦</span>
+                    <span class="hmi">Mentoring</span>    <span class="hmi sep">✦</span>
+                    <span class="hmi">London</span>       <span class="hmi sep">✦</span>
+                </div>
             </div>
-            <div class="relative z-10 flex flex-col md:flex-row items-center gap-8">
-                <div class="flex-1 space-y-6">
-                    <div class="space-y-4">
-                        <h1 class="text-4xl md:text-6xl font-bold tracking-tighter gradient-text-hero pb-4">
-                            Hi, I'm Yogi P
-                        </h1>
-                        <p class="text-xl md:text-2xl text-gray-600 font-medium">
-                            Senior Android Engineer at <span class="text-green-600 font-bold">Lopay</span>
+
+            <!-- CENTER: calm conversational intro + Android bot mark -->
+            <div class="container hero-center">
+                <div class="hero-text">
+                    <div class="hero-eyebrow">
+                        <span class="blink-dot"></span>
+                        Senior Android Engineer · Lopay · London
+                    </div>
+                    <h1 class="hero-intro">
+                        Hi, I'm <strong>Yogi&nbsp;P</strong>. I build the Android apps that take payments at Lopay, the side projects that don't, and the curriculum that turned 1000+ students into engineers.
+                    </h1>
+                    <div class="ctas">
+                        <a href="mailto:mryogip05@gmail.com" class="btn btn-primary" data-hover>
+                            Say hello
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                        </a>
+                        <a href="https://github.com/yogen-p" target="_blank" rel="noopener" class="btn btn-pink" data-hover>
+                            See the code
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-bot" aria-hidden="true">
+                    <!-- Chunky filled Android: brings each section's signature colour
+                         into one mark (acid head, pink body, blue arms, ink legs,
+                         pink antenna LEDs that pulse, lime chest light). -->
+                    <svg viewBox="0 0 320 360" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Hard offset shadow shape -->
+                        <g transform="translate(10, 10)">
+                            <rect x="60"  y="170" width="22"  height="100" rx="11" fill="#0a0a0a"/>
+                            <rect x="238" y="170" width="22"  height="100" rx="11" fill="#0a0a0a"/>
+                            <rect x="110" y="305" width="22"  height="50"  rx="11" fill="#0a0a0a"/>
+                            <rect x="188" y="305" width="22"  height="50"  rx="11" fill="#0a0a0a"/>
+                            <rect x="90"  y="160" width="140" height="140" rx="14" fill="#0a0a0a"/>
+                            <path d="M 90 130 A 70 70 0 0 1 230 130 L 230 150 L 90 150 Z" fill="#0a0a0a"/>
+                        </g>
+
+                        <!-- Antennae (with pulsing pink LEDs at the tips) -->
+                        <line x1="120" y1="60" x2="105" y2="20" stroke="#0a0a0a" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="200" y1="60" x2="215" y2="20" stroke="#0a0a0a" stroke-width="4" stroke-linecap="round"/>
+                        <circle class="antenna-led" cx="105" cy="20" r="5" fill="#ff5c8a" stroke="#0a0a0a" stroke-width="2"/>
+                        <circle class="antenna-led" cx="215" cy="20" r="5" fill="#ff5c8a" stroke="#0a0a0a" stroke-width="2"/>
+
+                        <!-- Head dome (acid lime) -->
+                        <path d="M 90 130 A 70 70 0 0 1 230 130 L 230 150 L 90 150 Z" fill="#c4f135" stroke="#0a0a0a" stroke-width="3"/>
+                        <circle cx="120" cy="115" r="7" fill="#0a0a0a"/>
+                        <circle cx="200" cy="115" r="7" fill="#0a0a0a"/>
+
+                        <!-- Body (pink) + arms (blue) + legs (ink) -->
+                        <rect x="90"  y="160" width="140" height="140" rx="14" fill="#ff5c8a" stroke="#0a0a0a" stroke-width="3"/>
+                        <rect x="60"  y="170" width="22"  height="100" rx="11" fill="#1a3cff" stroke="#0a0a0a" stroke-width="3"/>
+                        <rect x="238" y="170" width="22"  height="100" rx="11" fill="#1a3cff" stroke="#0a0a0a" stroke-width="3"/>
+                        <rect x="110" y="305" width="22"  height="50"  rx="11" fill="#0a0a0a"/>
+                        <rect x="188" y="305" width="22"  height="50"  rx="11" fill="#0a0a0a"/>
+
+                        <!-- Chest LED -->
+                        <circle cx="160" cy="220" r="14" fill="#c4f135" stroke="#0a0a0a" stroke-width="2"/>
+                        <circle cx="160" cy="220" r="5"  fill="#0a0a0a"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- A small scroll hint at the bottom — the only thing below the
+                 fold, kept understated so the hero stays calm. -->
+            <div class="hero-foot" aria-hidden="true">
+                <span>↓  keep scrolling</span>
+            </div>
+        </section>
+
+        <!-- ── Work (blue) ──────────────────────────────────────── -->
+        <section class="section-blue" id="work" data-bg="blue">
+            <div class="container">
+                <div class="s-head reveal">
+                    <span class="s-num">→ 01 / Selected Work</span>
+                    <h2><span class="stroke">Things</span> shipped.</h2>
+                </div>
+                <div class="work-grid reveal-stagger">
+                    <a href="https://lopay.com" target="_blank" rel="noopener" class="work-card alt-1" data-hover>
+                        <span class="badge">001 · Android · Mobile</span>
+                        <h3>Lopay Mobile Payment App</h3>
+                        <p class="desc">Lopay's flagship merchant app — tap-to-pay, transactions, payouts. Built from zero in Kotlin with MVI, Compose, and PCI-grade rigor.</p>
+                        <div class="tags">
+                            <span class="tag">Kotlin</span>
+                            <span class="tag">MVI</span>
+                            <span class="tag">Compose</span>
+                            <span class="tag">Payments</span>
+                        </div>
+                        <span class="arrow-link">View case study <span>↗</span></span>
+                    </a>
+                    <a href="https://lopay.com" target="_blank" rel="noopener" class="work-card alt-2" data-hover>
+                        <span class="badge">002 · Android · Stripe S700</span>
+                        <h3>Lopay S700 Terminal App</h3>
+                        <p class="desc">Custom Android build for Stripe's S700 hardware. Lower-level integrations with the printer, NFC reader, and chip slot — terminal-grade UX.</p>
+                        <div class="tags">
+                            <span class="tag">Kotlin</span>
+                            <span class="tag">S700 SDK</span>
+                            <span class="tag">Hardware</span>
+                        </div>
+                        <span class="arrow-link">View case study <span>↗</span></span>
+                    </a>
+                    <a href="https://lopay.com" target="_blank" rel="noopener" class="work-card alt-3" data-hover>
+                        <span class="badge">003 · Android · Mobile</span>
+                        <h3>Terminal Pay Mobile App</h3>
+                        <p class="desc">Standalone payment processor aimed at small merchants. Clean Kotlin, MVI, optimised for low-end Android devices in field deployments.</p>
+                        <div class="tags">
+                            <span class="tag">Kotlin</span>
+                            <span class="tag">Performance</span>
+                            <span class="tag">Field-tested</span>
+                        </div>
+                        <span class="arrow-link">View case study <span>↗</span></span>
+                    </a>
+                    <a href="https://lopay.com" target="_blank" rel="noopener" class="work-card alt-4" data-hover>
+                        <span class="badge">004 · Android · Stripe S700</span>
+                        <h3>Lopay Consumer App</h3>
+                        <p class="desc">Consumer-side companion for the merchant terminal — receipts, history, account management. Lives alongside the merchant app on a single Stripe device.</p>
+                        <div class="tags">
+                            <span class="tag">Kotlin</span>
+                            <span class="tag">Consumer UX</span>
+                            <span class="tag">Multi-app</span>
+                        </div>
+                        <span class="arrow-link">View case study <span>↗</span></span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Experience (ink) ─────────────────────────────────── -->
+        <section class="section-ink" id="experience" data-bg="ink">
+            <div class="container">
+                <div class="s-head reveal">
+                    <span class="s-num">→ 02 / Experience</span>
+                    <h2>The path so far<span class="stroke">.</span></h2>
+                </div>
+                <div class="timeline">
+                    <div class="tl-item reveal">
+                        <div class="tl-date">2021 → Present</div>
+                        <div class="tl-role">
+                            <h3>Senior Android Engineer</h3>
+                            <div class="tl-company">Lopay</div>
+                            <ul class="tl-bullets">
+                                <li>Built four production Android apps from scratch — for both consumer phones and Stripe S700 payment hardware.</li>
+                                <li>Led the architecture of payment-processing flows with focus on security, latency, and offline resilience.</li>
+                                <li>Set engineering patterns the wider Android team now follows (MVI, modularisation, testing rigor).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tl-item reveal">
+                        <div class="tl-date">2020 → 2021</div>
+                        <div class="tl-role">
+                            <h3>Technical Instructor</h3>
+                            <div class="tl-company">University Teaching</div>
+                            <ul class="tl-bullets">
+                                <li>Taught Android development, Python, and data science to undergraduates and weekend cohorts.</li>
+                                <li>Designed practical curricula — every module ended with shippable code, not closed-book exams.</li>
+                                <li>Mentored 1000+ students; many are now working engineers.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── About + Education (cream) ────────────────────────── -->
+        <section class="section-cream" id="about" data-bg="cream">
+            <div class="container">
+                <div class="s-head reveal">
+                    <span class="s-num">→ 03 / About</span>
+                    <h2>A bit of <span class="stroke">context</span>.</h2>
+                </div>
+                <div class="about-grid">
+                    <div class="about reveal">
+                        <p>
+                            I'm a <strong>Senior Android Engineer</strong> with a Big Data Science background and a stint teaching technical subjects at university. That mix shapes how I work: engineer first, but with one eye on what the data is telling me and another on whether a junior could read my code.
                         </p>
-                        <p class="text-lg text-gray-600 max-w-lg leading-relaxed">
-                            Building innovative Android applications and empowering the next generation through education.
+                        <p>
+                            At Lopay, I work on the apps people use to <strong>take money</strong> — phones, terminals, S700 hardware. I care about robustness, latency, and the small UX moments that make a payment feel trustworthy.
                         </p>
                     </div>
-                    <div class="flex flex-wrap gap-4 pt-4">
-                        <a href="#contact" class="btn-gradient text-white px-6 py-3 rounded-lg font-medium shadow-lg flex items-center">
-                            <i data-lucide="mail" class="mr-2 h-4 w-4"></i> Contact Me
-                        </a>
-                        <a href="https://github.com/yogen-p" target="_blank" class="border border-green-200 hover:bg-green-50 px-6 py-3 rounded-lg font-medium flex items-center transition-colors">
-                            <i data-lucide="github" class="mr-2 h-4 w-4"></i> GitHub
-                        </a>
-                        <a href="#" class="border border-blue-200 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium flex items-center transition-colors">
-                            <i data-lucide="linkedin" class="mr-2 h-4 w-4"></i> LinkedIn
-                        </a>
+                    <div class="meta-stack reveal-stagger">
+                        <div class="meta-card acid">
+                            <div class="label">Based</div>
+                            <div class="value">London, UK</div>
+                        </div>
+                        <div class="meta-card pink">
+                            <div class="label">Status</div>
+                            <div class="value">Open to opportunities</div>
+                        </div>
+                        <div class="meta-card">
+                            <div class="label">Education</div>
+                            <div class="value">MSc Big Data Science<small>Queen Mary, University of London · 2021</small></div>
+                        </div>
+                        <div class="meta-card">
+                            <div class="label">Numbers</div>
+                            <div class="value">4+ years · 4 apps · 1000+ taught</div>
+                        </div>
                     </div>
-                </div>
-                <div class="flex-shrink-0 relative">
-                    <div class="relative h-64 w-64 rounded-full overflow-hidden border-4 border-white shadow-2xl">
-                        <div class="absolute inset-0"></div>
-                        <img src="https://media.licdn.com/dms/image/v2/D4E03AQE8rF2toO0NUg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1667139070784?e=1754524800&v=beta&t=95o7Z7vrNQC9YKKqHE1Ahp8A4TzWhJaRtJ4Y8zRN1hw 
-                             alt="Yogi P" class="w-full h-full object-cover relative z-10 mix-blend-overlay">
-                    </div>
-                    <div class="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full animate-bounce-slow"></div>
-                    <div class="absolute -bottom-4 -left-4 w-6 h-6 bg-pink-400 rounded-full animate-pulse-slow"></div>
                 </div>
             </div>
         </section>
 
-        <!-- Tech Icons -->
-        <section class="py-12">
-            <div class="grid grid-cols-3 md:grid-cols-6 gap-8">
-                <div class="flex flex-col items-center space-y-2 text-center">
-                    <div class="p-4 bg-gradient-to-br from-green-400 to-blue-500 rounded-full text-white">
-                        <i data-lucide="smartphone" class="h-8 w-8"></i>
-                    </div>
-                    <span class="text-sm font-medium">Android</span>
+        <!-- ── Manifesto (terracotta — a colour used nowhere else) ── -->
+        <section class="section-warm manifesto" id="manifesto" data-bg="warm">
+            <div class="container">
+                <div class="s-head reveal">
+                    <span class="s-num">↳ a note · from yogi</span>
                 </div>
-                <div class="flex flex-col items-center space-y-2 text-center">
-                    <div class="p-4 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full text-white">
-                        <i data-lucide="database" class="h-8 w-8"></i>
-                    </div>
-                    <span class="text-sm font-medium">Big Data</span>
-                </div>
-                <div class="flex flex-col items-center space-y-2 text-center">
-                    <div class="p-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full text-white">
-                        <i data-lucide="code" class="h-8 w-8"></i>
-                    </div>
-                    <span class="text-sm font-medium">Development</span>
-                </div>
-                <div class="flex flex-col items-center space-y-2 text-center">
-                    <div class="p-4 bg-gradient-to-br from-red-400 to-pink-500 rounded-full text-white">
-                        <i data-lucide="users" class="h-8 w-8"></i>
-                    </div>
-                    <span class="text-sm font-medium">Teaching</span>
-                </div>
-                <div class="flex flex-col items-center space-y-2 text-center">
-                    <div class="p-4 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full text-white">
-                        <i data-lucide="graduation-cap" class="h-8 w-8"></i>
-                    </div>
-                    <span class="text-sm font-medium">Education</span>
-                </div>
-                <div class="flex flex-col items-center space-y-2 text-center">
-                    <div class="p-4 bg-gradient-to-br from-teal-400 to-green-500 rounded-full text-white">
-                        <i data-lucide="zap" class="h-8 w-8"></i>
-                    </div>
-                    <span class="text-sm font-medium">Innovation</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Stats Section -->
-        <section class="py-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div class="card-hover bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-lg p-6 text-center">
-                    <div class="text-3xl font-bold text-green-600 mb-2">4+</div>
-                    <div class="text-sm text-gray-600">Years at Lopay</div>
-                </div>
-                <div class="card-hover bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-6 text-center">
-                    <div class="text-3xl font-bold text-blue-600 mb-2">4</div>
-                    <div class="text-sm text-gray-600">Android Apps Built</div>
-                </div>
-                <div class="card-hover bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-lg p-6 text-center">
-                    <div class="text-3xl font-bold text-purple-600 mb-2">1000+</div>
-                    <div class="text-sm text-gray-600">Students Taught</div>
-                </div>
-                <div class="card-hover bg-gradient-to-br from-orange-50 to-orange-100 border border-orange-200 rounded-lg p-6 text-center">
-                    <div class="text-3xl font-bold text-orange-600 mb-2">MSc</div>
-                    <div class="text-sm text-gray-600">Big Data Science</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="py-12 border-t border-gray-200">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">About Me</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-green-400 to-blue-500 mx-auto rounded-full"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div class="space-y-6">
-                    <p class="text-lg text-gray-700 leading-relaxed">
-                        I'm a Senior Android Engineer with expertise in developing mobile applications for both consumer devices
-                        and specialized hardware. With a background in Big Data Science and experience teaching technical
-                        subjects, I bring a unique perspective to software development.
+                <h2 class="manifesto-headline">
+                    <span class="line"><span data-w>The&nbsp;world</span></span>
+                    <span class="line"><span data-w>is&nbsp;getting</span></span>
+                    <span class="line"><span data-w class="grey">greyer.</span></span>
+                    <span class="line"><span data-w class="pink">I'm&nbsp;not.</span></span>
+                </h2>
+                <span class="manifesto-mark" aria-hidden="true">
+                    <!-- A hand-drawn under-squiggle: the kind of mark you'd scribble on a napkin -->
+                    <svg viewBox="0 0 240 32">
+                        <path d="M 4 22 C 30 4, 60 28, 90 14 S 150 4, 180 22 S 220 14, 236 18"/>
+                    </svg>
+                </span>
+                <div class="reveal" style="margin-top: 56px;">
+                    <p class="manifesto-body">
+                        Cars are grey. Backpacks are black. Buildings are glass. Homes are beige. Colour, character, and weirdness are quietly being filed off the world.
                     </p>
-                    <p class="text-lg text-gray-700 leading-relaxed">
-                        My passion lies in creating robust, user-friendly Android applications that solve real-world problems. I
-                        enjoy the challenge of optimizing performance and ensuring compatibility across different devices.
+                    <p class="manifesto-body">
+                        I'd rather build things with <strong>character</strong> — even when they're "just" Android apps. This site is one of them.
                     </p>
                 </div>
-                <div class="relative">
-                    <div class="bg-gradient-to-br from-green-50 to-blue-50 border border-green-200 rounded-lg p-6">
-                        <div class="space-y-4">
-                            <div class="flex items-center space-x-3">
-                                <i data-lucide="map-pin" class="h-5 w-5 text-green-600"></i>
-                                <span class="text-gray-700">London, UK</span>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <i data-lucide="calendar" class="h-5 w-5 text-blue-600"></i>
-                                <span class="text-gray-700">Available for opportunities</span>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <i data-lucide="award" class="h-5 w-5 text-purple-600"></i>
-                                <span class="text-gray-700">Senior Android Engineer</span>
-                            </div>
-                        </div>
+            </div>
+        </section>
+
+        <!-- ── Skills (acid) ────────────────────────────────────── -->
+        <section class="section-acid" id="skills" data-bg="acid">
+            <div class="container">
+                <div class="s-head reveal">
+                    <span class="s-num">→ 04 / Skills</span>
+                    <h2><span class="stroke">Tools</span> of the trade.</h2>
+                </div>
+                <div class="skills-wrap reveal-stagger">
+                    <div class="skill-cluster">
+                        <h4>Languages &amp; platforms</h4>
+                        <span class="skill">Kotlin</span>
+                        <span class="skill ink">Java</span>
+                        <span class="skill">Python</span>
+                        <span class="skill pink">SQL</span>
+                        <span class="skill">Android SDK</span>
+                    </div>
+                    <div class="skill-cluster">
+                        <h4>Android stack</h4>
+                        <span class="skill ink">Jetpack Compose</span>
+                        <span class="skill">MVI</span>
+                        <span class="skill pink">Coroutines</span>
+                        <span class="skill">Flow</span>
+                        <span class="skill ink">Room</span>
+                        <span class="skill">Retrofit</span>
+                    </div>
+                    <div class="skill-cluster">
+                        <h4>Beyond the IDE</h4>
+                        <span class="skill pink">Data science</span>
+                        <span class="skill">Machine learning</span>
+                        <span class="skill ink">Teaching</span>
+                        <span class="skill">Mentoring</span>
+                        <span class="skill pink">System design</span>
+                        <span class="skill">Git &amp; CI</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Experience Section -->
-        <section id="experience" class="py-12 border-t border-gray-200">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">
-                    Work Experience
-                </h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto rounded-full"></div>
-            </div>
-            <div class="space-y-8">
-                <div class="card-hover bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-lg p-8">
-                    <div class="flex flex-col md:flex-row justify-between mb-4">
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-900 mb-2">Senior Android Engineer</h3>
-                            <div class="text-lg font-medium text-green-600 mb-2">Lopay</div>
-                        </div>
-                        <div class="flex items-center text-gray-500 bg-white px-4 py-2 rounded-full">
-                            <i data-lucide="calendar" class="h-4 w-4 mr-2"></i>
-                            2021 - Present
-                        </div>
-                    </div>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                            Built 4 Android applications from scratch for both consumer mobile devices and specialized Stripe S700 hardware
-                        </li>
-                        <li class="flex items-start">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                            Led development of payment processing applications with focus on security and performance
-                        </li>
-                        <li class="flex items-start">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                            Implemented robust architecture patterns ensuring scalability and maintainability
-                        </li>
-                    </ul>
+        <!-- ── Contact (pink) ───────────────────────────────────── -->
+        <section class="section-pink" id="contact" data-bg="pink">
+            <div class="container">
+                <div class="s-head reveal" style="margin-bottom: 32px;">
+                    <span class="s-num">→ 05 / Contact</span>
                 </div>
-
-                <div class="card-hover bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-8">
-                    <div class="flex flex-col md:flex-row justify-between mb-4">
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-900 mb-2">Technical Instructor</h3>
-                            <div class="text-lg font-medium text-blue-600 mb-2">University Teaching</div>
-                        </div>
-                        <div class="flex items-center text-gray-500 bg-white px-4 py-2 rounded-full">
-                            <i data-lucide="calendar" class="h-4 w-4 mr-2"></i>
-                            2020 - 2021
-                        </div>
-                    </div>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                            Taught Android Development, Data Science, and Python Development to university students
-                        </li>
-                        <li class="flex items-start">
-                            <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                            Conducted weekend workshops focusing on practical, hands-on learning
-                        </li>
-                        <li class="flex items-start">
-                            <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                            Mentored over 1000 students, helping them build technical skills and career paths
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Education Section -->
-        <section id="education" class="py-12 border-t border-gray-200">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-purple-600 bg-clip-text text-transparent">
-                    Education
-                </h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-500 mx-auto rounded-full"></div>
-            </div>
-            <div class="card-hover bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-lg p-8">
-                <div class="flex flex-col md:flex-row items-center justify-between">
-                    <div class="flex items-center space-x-4 mb-4 md:mb-0">
-                        <div class="p-4 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full text-white">
-                            <i data-lucide="graduation-cap" class="h-8 w-8"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-900">MSc in Big Data Science</h3>
-                            <div class="text-lg font-medium text-purple-600">Queen Mary University of London</div>
-                        </div>
-                    </div>
-                    <div class="flex items-center text-gray-500 bg-white px-4 py-2 rounded-full">
-                        <i data-lucide="calendar" class="h-4 w-4 mr-2"></i>
-                        2021
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="py-12 border-t border-gray-200">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">Skills & Expertise</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-green-400 to-blue-500 mx-auto rounded-full"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="card-hover bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-lg p-8">
-                    <h3 class="text-2xl font-bold mb-6 text-gray-900 flex items-center">
-                        <i data-lucide="code" class="h-6 w-6 mr-3 text-green-600"></i>
-                        Technical Skills
-                    </h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-badge px-4 py-2 text-sm font-medium rounded-full">Android Development</span>
-                        <span class="skill-badge px-4 py-2 text-sm font-medium rounded-full">Kotlin</span>
-                        <span class="skill-badge px-4 py-2 text-sm font-medium rounded-full">Java</span>
-                        <span class="skill-badge px-4 py-2 text-sm font-medium rounded-full">MVI</span>
-                        <span class="skill-badge px-4 py-2 text-sm font-medium rounded-full">Jetpack Compose</span>
-                        <span class="skill-badge px-4 py-2 text-sm font-medium rounded-full">Room</span>
-                        <span class="skill-badge px-4 py-2 text-sm font-medium rounded-full">Retrofit</span>
-                        <span class="skill-badge px-4 py-2 text-sm font-medium rounded-full">Coroutines</span>
-                        <span class="skill-badge px-4 py-2 text-sm font-medium rounded-full">Python</span>
-                        <span class="skill-badge px-4 py-2 text-sm font-medium rounded-full">Data Science</span>
-                        <span class="skill-badge px-4 py-2 text-sm font-medium rounded-full">Machine Learning</span>
-                        <span class="skill-badge px-4 py-2 text-sm font-medium rounded-full">SQL</span>
-                        <span class="skill-badge px-4 py-2 text-sm font-medium rounded-full">Git</span>
-                    </div>
-                </div>
-                <div class="card-hover bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-8">
-                    <h3 class="text-2xl font-bold mb-6 text-gray-900 flex items-center">
-                        <i data-lucide="book-open" class="h-6 w-6 mr-3 text-blue-600"></i>
-                        Soft Skills
-                    </h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 text-sm font-medium rounded-full">Teaching</span>
-                        <span class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 text-sm font-medium rounded-full">Technical Communication</span>
-                        <span class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 text-sm font-medium rounded-full">Mentoring</span>
-                        <span class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 text-sm font-medium rounded-full">Problem Solving</span>
-                        <span class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 text-sm font-medium rounded-full">Team Collaboration</span>
-                        <span class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 text-sm font-medium rounded-full">Project Management</span>
-                        <span class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 text-sm font-medium rounded-full">Leadership</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="py-12 border-t border-gray-200">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">
-                    Featured Projects
-                </h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto rounded-full"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="card-hover project-card rounded-lg p-8">
-                    <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg mb-6 flex items-center justify-center">
-                        <i data-lucide="smartphone" class="h-8 w-8 text-white"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-gray-900">Lopay Mobile Payment App</h3>
-                    <p class="text-gray-600 mb-4">A robust payment processing application built for android mobile devices.</p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="border border-gray-300 px-3 py-1 text-sm rounded-full">Kotlin</span>
-                        <span class="border border-gray-300 px-3 py-1 text-sm rounded-full">MVI</span>
-                        <span class="border border-gray-300 px-3 py-1 text-sm rounded-full">Payment Processing</span>
-                    </div>
-                    <a href="https://lopay.com" target="_blank" class="border hover:bg-gray-50 px-4 py-2 text-sm rounded-lg flex items-center w-fit transition-colors">
-                        <i data-lucide="external-link" class="mr-2 h-4 w-4"></i>
-                        View Details
+                <p class="contact-prompt reveal">
+                    Got something to <span class="stroke">build</span>?<br>Let's talk.
+                </p>
+                <div class="contact-list reveal-stagger">
+                    <a href="mailto:mryogip05@gmail.com" class="contact-card" data-hover aria-label="Email Yogi P">
+                        <span class="icon-wrap" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 16.5v-9z"/><path d="M3.5 7.5l8.5 6 8.5-6"/></svg>
+                        </span>
+                        <span class="label">Email</span>
+                        <span class="value">Drop a note</span>
+                        <span class="arrow-link">Open mail <span>→</span></span>
                     </a>
-                </div>
-
-                <div class="card-hover project-card rounded-lg p-8">
-                    <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-lg mb-6 flex items-center justify-center">
-                        <i data-lucide="smartphone" class="h-8 w-8 text-white"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-gray-900">Lopay S700 Terminal App</h3>
-                    <p class="text-gray-600 mb-4">A robust payment processing application built for stripe s700 specialized hardware.</p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="border border-gray-300 px-3 py-1 text-sm rounded-full">Kotlin</span>
-                        <span class="border border-gray-300 px-3 py-1 text-sm rounded-full">MVI</span>
-                        <span class="border border-gray-300 px-3 py-1 text-sm rounded-full">Payment Processing</span>
-                    </div>
-                    <a href="https://lopay.com" target="_blank" class="border hover:bg-gray-50 px-4 py-2 text-sm rounded-lg flex items-center w-fit transition-colors">
-                        <i data-lucide="external-link" class="mr-2 h-4 w-4"></i>
-                        View Details
+                    <a href="https://github.com/yogen-p" target="_blank" rel="noopener" class="contact-card acid" data-hover aria-label="View GitHub profile">
+                        <span class="icon-wrap" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" class="fill"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                        </span>
+                        <span class="label">Code</span>
+                        <span class="value">See the code</span>
+                        <span class="arrow-link">View profile <span>↗</span></span>
                     </a>
-                </div>
-
-                <div class="card-hover project-card rounded-lg p-8">
-                    <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg mb-6 flex items-center justify-center">
-                        <i data-lucide="smartphone" class="h-8 w-8 text-white"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-gray-900">Terminal Pay Mobile App</h3>
-                    <p class="text-gray-600 mb-4">A robust payment processing application built for android mobile devices.</p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="border border-gray-300 px-3 py-1 text-sm rounded-full">Kotlin</span>
-                        <span class="border border-gray-300 px-3 py-1 text-sm rounded-full">MVI</span>
-                        <span class="border border-gray-300 px-3 py-1 text-sm rounded-full">Payment Processing</span>
-                    </div>
-                    <a href="https://lopay.com" target="_blank" class="border hover:bg-gray-50 px-4 py-2 text-sm rounded-lg flex items-center w-fit transition-colors">
-                        <i data-lucide="external-link" class="mr-2 h-4 w-4"></i>
-                        View Details
+                    <a href="https://www.linkedin.com/in/yogen-p/" target="_blank" rel="noopener" class="contact-card ink" data-hover aria-label="View LinkedIn profile">
+                        <span class="icon-wrap" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" class="fill"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </span>
+                        <span class="label">Network</span>
+                        <span class="value">Let's connect</span>
+                        <span class="arrow-link">Open profile <span>↗</span></span>
                     </a>
-                </div>
-
-                <div class="card-hover project-card rounded-lg p-8">
-                    <div class="w-16 h-16 bg-gradient-to-br from-red-400 to-pink-500 rounded-lg mb-6 flex items-center justify-center">
-                        <i data-lucide="smartphone" class="h-8 w-8 text-white"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 text-gray-900">Lopay Consumer App</h3>
-                    <p class="text-gray-600 mb-4">A robust payment processing application built for stripe s700 specialized hardware.</p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="border border-gray-300 px-3 py-1 text-sm rounded-full">Kotlin</span>
-                        <span class="border border-gray-300 px-3 py-1 text-sm rounded-full">MVI</span>
-                        <span class="border border-gray-300 px-3 py-1 text-sm rounded-full">Payment Processing</span>
-                    </div>
-                    <a href="https://lopay.com" target="_blank" class="border hover:bg-gray-50 px-4 py-2 text-sm rounded-lg flex items-center w-fit transition-colors">
-                        <i data-lucide="external-link" class="mr-2 h-4 w-4"></i>
-                        View Details
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-12 border-t border-gray-200">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">Get In Touch</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-green-400 to-blue-500 mx-auto rounded-full"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="card-hover bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-lg p-8">
-                    <h3 class="text-2xl font-bold mb-6 text-gray-900">Contact Information</h3>
-                    <div class="space-y-6">
-                        <div class="flex items-center">
-                            <div class="p-3 bg-gradient-to-br from-green-500 to-blue-500 rounded-full text-white mr-4">
-                                <i data-lucide="mail" class="h-5 w-5"></i>
-                            </div>
-                            <a href="mailto:mryogip05@gmail.com" target="_blank" class="p-3 hover:bg-green-100 rounded-lg transition-colors">
-                            <span class="text-gray-700">mryogip05@gmail.com</span>
-                        </a>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full text-white mr-4">
-                                <i data-lucide="github" class="h-5 w-5"></i>
-                            </div>
-                            <a href="https://github.com/yogen-p" target="_blank" class="p-3 hover:bg-green-100 rounded-lg transition-colors">
-                                <span class="text-gray-700">github.com/yogen-p</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-hover bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-8">
-                    <h3 class="text-2xl font-bold mb-6 text-gray-900">Send Me a Message</h3>
-                    <form class="space-y-6" onsubmit="handleFormSubmit(event)">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="space-y-2">
-                                <label for="name" class="text-sm font-medium text-gray-700">Name</label>
-                                <input id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="Your name" required>
-                            </div>
-                            <div class="space-y-2">
-                                <label for="email" class="text-sm font-medium text-gray-700">Email</label>
-                                <input id="email" name="email" type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="Your email" required>
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <label for="subject" class="text-sm font-medium text-gray-700">Subject</label>
-                            <input id="subject" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="Subject" required>
-                        </div>
-                        <div class="space-y-2">
-                            <label for="message" class="text-sm font-medium text-gray-700">Message</label>
-                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none" placeholder="Your message" required></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 text-lg font-medium shadow-lg rounded-lg transition-all">
-                            Send Message
-                        </button>
-                    </form>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t bg-gradient-to-r from-gray-50 to-gray-100 py-12">
-        <div class="container mx-auto text-center px-4">
-            <div class="mb-6">
-                <div class="font-bold text-2xl bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-2">
-                    Yogi P
-                </div>
-                <p class="text-gray-600">Senior Android Engineer & Educator</p>
+    <footer data-bg="ink">
+        <div class="container">
+            <h2 class="foot-mega">Yogi&nbsp;P</h2>
+            <div class="foot-inner">
+                <span>© <span id="year"></span> · Senior Android Engineer · Built in colour, on purpose</span>
+                <a href="#top" class="foot-back" data-hover>Back to top <span aria-hidden="true">↑</span></a>
             </div>
-            <div class="flex justify-center space-x-6 mb-6">
-                <a href="https://github.com/yogen-p" target="_blank" class="p-3 hover:bg-green-100 rounded-lg transition-colors">
-                    <i data-lucide="github" class="h-5 w-5"></i>
-                </a>
-                <a href="#" class="p-3 hover:bg-blue-100 rounded-lg transition-colors">
-                    <i data-lucide="linkedin" class="h-5 w-5"></i>
-                </a>
-                <a href="mailto:mryogip05@gmail.com" class="p-3 hover:bg-purple-100 rounded-lg transition-colors">
-                    <i data-lucide="mail" class="h-5 w-5"></i>
-                </a>
-            </div>
-            <p class="text-gray-500">© 2024 Yogi P. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.toggle('active');
-        }
-
-        // Form submission handler
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData);
-            
-            // Here you would typically send the data to a server
-            alert('Thank you for your message! I will get back to you soon.');
-            event.target.reset();
-        }
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+        // Custom cursor with hover-state expansion
+        (function() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            if (window.matchMedia('(hover: none)').matches) return;
+            if (window.innerWidth <= 768) return;
+            document.documentElement.classList.add('has-cursor');
+            const dot = document.getElementById('cursorDot');
+            const ring = document.getElementById('cursorRing');
+            let mx = 0, my = 0, rx = 0, ry = 0;
+            window.addEventListener('mousemove', (e) => {
+                mx = e.clientX; my = e.clientY;
+                dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+            }, { passive: true });
+            (function loop() {
+                rx += (mx - rx) * 0.18;
+                ry += (my - ry) * 0.18;
+                ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+                requestAnimationFrame(loop);
+            })();
+            // Expand on hoverable elements
+            document.querySelectorAll('[data-hover], a, button').forEach(el => {
+                el.addEventListener('mouseenter', () => ring.classList.add('is-hover'));
+                el.addEventListener('mouseleave', () => ring.classList.remove('is-hover'));
             });
-        });
 
-        // Add scroll effect to header
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-            } else {
-                header.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+            // Cursor palette per background. Both the dot color and hover-ring fill
+            // need to stay visible against whatever sits behind the cursor — section
+            // OR a colored card/chip nested inside that section.
+            const palette = {
+                cream: { color: '#0a0a0a', hover: '#ff5c8a' },  // ink dot, pink hover
+                blue:  { color: '#c4f135', hover: '#ff5c8a' },  // acid dot, pink hover
+                ink:   { color: '#c4f135', hover: '#ff5c8a' },  // acid dot, pink hover
+                acid:  { color: '#0a0a0a', hover: '#ff5c8a' },  // ink dot, pink hover
+                pink:  { color: '#0a0a0a', hover: '#c4f135' }, // ink dot, acid hover
+                warm:  { color: '#0a0a0a', hover: '#c4f135' }  // ink dot, acid hover (manifesto / terracotta)
+            };
+            const root = document.documentElement;
+            const apply = (key) => {
+                const p = palette[key]; if (!p) return;
+                root.style.setProperty('--cursor-color', p.color);
+                root.style.setProperty('--cursor-hover', p.hover);
+            };
+
+            // Track the current section so element-hover overrides can revert correctly.
+            let currentSectionBg = 'cream';
+            let isOverElement = false;
+
+            const sections = document.querySelectorAll('[data-bg]');
+            const bandIO = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        currentSectionBg = e.target.dataset.bg;
+                        // Don't override an active per-element palette mid-hover.
+                        if (!isOverElement) apply(currentSectionBg);
+                    }
+                });
+            }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+            sections.forEach(s => bandIO.observe(s));
+
+            // Per-element override: cards/chips/buttons have their OWN background
+            // (e.g. a pink work-card inside the blue work section). Without this,
+            // the pink hover-ring would disappear against the pink card. Map element
+            // class to its effective bg key.
+            const classToBg = (el) => {
+                const c = el.classList;
+                if (c.contains('alt-1')) return 'acid';
+                if (c.contains('alt-2')) return 'pink';
+                if (c.contains('alt-3')) return 'cream';
+                if (c.contains('alt-4')) return 'blue';
+                if (c.contains('btn-primary')) return 'acid';
+                if (c.contains('btn-pink')) return 'pink';
+                if (c.contains('ink')) return 'ink';
+                if (c.contains('acid')) return 'acid';
+                if (c.contains('pink')) return 'pink';
+                return 'cream'; // default for un-modifier-ed cards & skill chips
+            };
+            const HOVERABLE = '.work-card, .meta-card, .contact-card, .skill, .btn-primary, .btn-pink';
+            document.querySelectorAll(HOVERABLE).forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    isOverElement = true;
+                    apply(classToBg(el));
+                });
+                el.addEventListener('mouseleave', () => {
+                    isOverElement = false;
+                    apply(currentSectionBg);
+                });
+            });
+
+            // Footer fallback: footer sits at page end and can't reach the
+            // central detection band (you can't scroll past it).
+            window.addEventListener('scroll', () => {
+                const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 40;
+                if (atBottom) {
+                    currentSectionBg = 'ink';
+                    if (!isOverElement) apply('ink');
+                }
+            }, { passive: true });
+        })();
+
+        // Scroll reveal
+        (function() {
+            const els = document.querySelectorAll('.reveal, .reveal-stagger');
+            if (!('IntersectionObserver' in window)) {
+                els.forEach(el => el.classList.add('is-in'));
+                return;
             }
-        });
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-in');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+            els.forEach(el => io.observe(el));
+        })();
+
+        // Hero word slide-up — fires immediately on page load
+        (function() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            const words = document.querySelectorAll('.hero h1 [data-w]');
+            words.forEach((w, i) => {
+                w.style.transform = 'translateY(110%)';
+                w.style.transition = 'transform 0.95s cubic-bezier(0.16, 1, 0.3, 1)';
+                w.style.transitionDelay = `${100 + i * 90}ms`;
+            });
+            requestAnimationFrame(() => {
+                words.forEach(w => { w.style.transform = 'translateY(0)'; });
+            });
+        })();
+
+        // Manifesto headline — same per-word slide, but triggered when the
+        // section enters the viewport (it's deep down the page, so on-load
+        // would fire long before the user sees it).
+        (function() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            const manifesto = document.querySelector('.manifesto');
+            if (!manifesto) return;
+            const words = manifesto.querySelectorAll('.manifesto-headline [data-w]');
+            words.forEach((w, i) => {
+                w.style.transform = 'translateY(110%)';
+                w.style.transition = 'transform 0.95s cubic-bezier(0.16, 1, 0.3, 1)';
+                w.style.transitionDelay = `${i * 110}ms`;
+            });
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        manifesto.classList.add('is-in');         // triggers squiggle stroke draw
+                        words.forEach(w => { w.style.transform = 'translateY(0)'; });
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.25 });
+            io.observe(manifesto);
+        })();
+
+        // Mobile drawer
+        (function() {
+            const drawer = document.getElementById('drawer');
+            const open = () => { drawer.classList.add('is-open'); drawer.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; };
+            const close = () => { drawer.classList.remove('is-open'); drawer.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; };
+            document.getElementById('menuBtn').addEventListener('click', open);
+            document.getElementById('drawerClose').addEventListener('click', close);
+            drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+        })();
     </script>
 </body>
 </html>
