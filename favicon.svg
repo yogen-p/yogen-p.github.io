@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320">
+    <!--
+      Favicon: head + antennae of the hero Android bot, scaled to fit the
+      square favicon canvas. Picks the most recognisable part of the mark
+      (acid-lime dome, two pulsing-pink antenna LEDs, ink eyes) so it reads
+      even at 16×16 in browser tabs.
+    -->
+    <rect width="320" height="320" fill="#f4ebd0"/>
+
+    <!-- Antennae -->
+    <line x1="120" y1="120" x2="100" y2="60"  stroke="#0a0a0a" stroke-width="10" stroke-linecap="round"/>
+    <line x1="200" y1="120" x2="220" y2="60"  stroke="#0a0a0a" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="100" cy="60" r="14" fill="#ff5c8a" stroke="#0a0a0a" stroke-width="6"/>
+    <circle cx="220" cy="60" r="14" fill="#ff5c8a" stroke="#0a0a0a" stroke-width="6"/>
+
+    <!-- Head dome (acid lime) — sized larger than hero so it dominates the favicon -->
+    <path d="M 60 200 A 100 100 0 0 1 260 200 L 260 230 L 60 230 Z" fill="#c4f135" stroke="#0a0a0a" stroke-width="8"/>
+
+    <!-- Eyes -->
+    <circle cx="115" cy="180" r="14" fill="#0a0a0a"/>
+    <circle cx="205" cy="180" r="14" fill="#0a0a0a"/>
+
+    <!-- Hint of body so the dome doesn't float -->
+    <rect x="60" y="240" width="200" height="40" rx="10" fill="#ff5c8a" stroke="#0a0a0a" stroke-width="8"/>
+</svg>
